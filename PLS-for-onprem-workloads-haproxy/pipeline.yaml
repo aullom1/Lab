@@ -1,0 +1,47 @@
+trigger: none
+
+name: "$(Date:yyyyMMdd)-$(BuildID)"
+
+pool: AtlasHostedAgents
+
+variables:
+  SSH_PUBLIC_IP: "69.129.207.211"
+  # Required at queue time, so it must be set in the UI... VM_ADMIN_PASSWORD: ""
+  VM_ADMIN_USERNAME: "aaronjullom"
+
+jobs:
+  - deployment: PLS Lab
+    environment: Provider Sandbox
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - checkout: self
+
+            - task: deployAzureResourceGroup@2
+              displayName: 'Create Provider RG'
+              inputs:
+                ConnectedServiceNameARM: 'CMFG-Sandbox Sandbox'
+                rgType: devSandbox
+                enableForAtlas: atlasFalse
+                appDescription: Provider
+                devSandboxAssetTag: 000083993
+                roleGroup: 'R-TeamTitan-LSA'
+                location: eastus2
+
+            - task: colinsalmcorner.colinsalmcorner-buildtasks.replace-tokens-task.ReplaceTokens@1
+              displayName: 'Replace tokens in parameter files'
+              inputs:
+                sourcePath: '$(System.DefaultWorkingDirectory)/_aullom1_Lab/PLS-for-onprem-workloads-haproxy/'
+                filePattern: '*.parameters.json'
+
+            - task: AzureResourceManagerTemplateDeployment@3
+              displayName: 'ARM Template deployment: Resource Group scope'
+              inputs:
+                azureResourceManagerConnection: 'CMFG-Sandbox Sandbox'
+                subscriptionId: '4ecbab23-0d34-4fd1-88a2-ca4f5f4121fe'
+                resourceGroupName: 'RG-CMFG-T01-Provider-DevSandbox'
+                location: 'East US 2'
+                csmFile: '$(System.DefaultWorkingDirectory)/_aullom1_Lab/PLS-for-onprem-workloads-haproxy/azuredeploy.json'
+                csmParametersFile: '$(System.DefaultWorkingDirectory)/_aullom1_Lab/PLS-for-onprem-workloads-haproxy/provider.parameters.json'
+                deploymentName: 'PLS-Provider'
