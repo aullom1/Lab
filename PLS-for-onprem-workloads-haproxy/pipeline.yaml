@@ -25,7 +25,7 @@ jobs:
                 rgType: devSandbox
                 enableForAtlas: atlasFalse
                 appDescription: Provider
-                devSandboxAssetTag: 000083993
+                devSandboxAssetTag: 000083991
                 roleGroup: 'R-TeamTitan-LSA'
                 location: eastus2
 
