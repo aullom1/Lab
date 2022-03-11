@@ -1,0 +1,18 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "Environment": {
+        "value": "Provider"
+      },
+      "VmAdminUsername": {
+        "value": "__VM_ADMIN_USERNAME__"
+      },
+      "VmAdminPassword": {
+        "value": "__VM_ADMIN_PASSWORD__"
+      },
+      "Restrict_SSH_AccessByPublicIP": {
+        "value": "__SSH_PUBLIC_IP__"
+      }
+    }
+  }
