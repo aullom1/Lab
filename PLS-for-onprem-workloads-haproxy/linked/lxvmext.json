@@ -35,7 +35,8 @@
                 "settings": {
                     "fileUris": [
                         "[parameters('commandToExecute')]"
-                    ]
+                    ],
+                    "commandToExecute": "vm_setup.sh"
                 }
             }
         }
