@@ -33,7 +33,9 @@
                 "typeHandlerVersion": "2.1",
                 "autoUpgradeMinorVersion": true,
                 "settings": {
-                    "fileUris": "[parameters('commandToExecute')]"
+                    "fileUris": [
+                        "[parameters('commandToExecute')]"
+                    ]
                 }
             }
         }
