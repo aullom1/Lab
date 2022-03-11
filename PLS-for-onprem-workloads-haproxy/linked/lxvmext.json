@@ -7,7 +7,7 @@
         },
         "commandToExecute": {
             "type": "string",
-            "defaultValue": "apt-get -y update && apt-get -y install nginx && hostname > /var/www/html/index.html",
+            "defaultValue": "https://github.com/aullom1/Lab/blob/cmg/PLS-for-onprem-workloads-haproxy/linked/vm_setup.sh",
             "metadata": {
                 "description": "Optional in case you answer no for Lock Down Public IP, but required in case you selected yes. Please use curl ifconfig.io to get your Public IP address"
             }
@@ -33,7 +33,7 @@
                 "typeHandlerVersion": "2.1",
                 "autoUpgradeMinorVersion": true,
                 "settings": {
-                    "commandToExecute": "[parameters('commandToExecute')]"
+                    "fileUris": "[parameters('commandToExecute')]"
                 }
             }
         }
